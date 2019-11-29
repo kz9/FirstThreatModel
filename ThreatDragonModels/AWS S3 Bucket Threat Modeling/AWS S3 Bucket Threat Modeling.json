@@ -2,7 +2,7 @@
   "summary": {
     "title": "AWS S3 Bucket Threat Modeling",
     "owner": "Kaz Jiang",
-    "description": "My first Threat modeling for AWS S3 Bucket"
+    "description": "Threat modeling for AWS S3 Bucket"
   },
   "detail": {
     "contributors": [],
