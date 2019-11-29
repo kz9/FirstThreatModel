@@ -10,7 +10,551 @@
       {
         "title": "AWS S3 Bucket",
         "thumbnail": "./public/content/images/thumbnail.jpg",
-        "id": 0
+        "id": 0,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 506,
+                "y": 204
+              },
+              "angle": 0,
+              "id": "e89ea73b-bcd2-4063-89c0-f3eaf0b0b402",
+              "z": 1,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "ruleId": "b2a6d40d-d3f8-4750-8e4d-c02cc84b13dc",
+                  "title": "Generic spoofing threat",
+                  "type": "Spoofing",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "Impersonate admin\nMan in the Middle",
+                  "mitigation": "The SSH connection is only allowed to the admin's IP address and only public-key authentication is allowed. Also, the root account is disabled in the SSH session. The connection from and to anywhere is within an SSL in order to prevent the MITM."
+                },
+                {
+                  "ruleId": "4adaa48a-0345-4533-a189-64c98c4420dd",
+                  "title": "Generic tampering threat",
+                  "type": "Tampering",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Man in the Middle\nGain access to the server and modify files such as authorized_keys file\nAWS .pem file modification",
+                  "mitigation": "Enable SSL everywhere. Enable a detailed logging system with timestamp and backup on the database. The /log directory and files under the directory should have attributes append-only(a) and undeletable(u). The AWS .pem file should have attributes immutable(i) and undeletable(u)\nP.S. follow CIS controls"
+                },
+                {
+                  "ruleId": "87bc37e2-798e-4d68-bb96-feb1da26da48",
+                  "title": "Generic repudiation threat",
+                  "type": "Repudiation",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "A generic repudiation threat",
+                  "mitigation": "Set up strong HASH encryption for user credentials. Enable logging for each time the user login."
+                },
+                {
+                  "ruleId": "13000296-b17d-4b72-9cc4-f5cc33f80e4c",
+                  "title": "Generic informtion disclosure threat",
+                  "type": "Information disclosure",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Process error show essential server information\nAWS .pem file disclosure",
+                  "mitigation": "Follow fail securely principle. Set only read permission to root user only on the AWS .pem file.\nP.S. Follow the CIS controls"
+                },
+                {
+                  "ruleId": "edb05d76-a695-455f-947b-7d67b78bc31d",
+                  "title": "Generic DoS threat",
+                  "type": "Denial of service",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "A generic DoS threat",
+                  "mitigation": "Update on time. Implement IDS and IPS software."
+                },
+                {
+                  "ruleId": "c1377855-ea20-4c97-8861-f95c364fb8d2",
+                  "title": "Generic elevation threat",
+                  "type": "Elevation of privilege",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Vertical elevation of privilege to root user\nHorizontal elevation of privilege to another user",
+                  "mitigation": "Update on time in order to avoid any kernel exploit. Make sure no misconfiguration on SUID & SGID executables and also the crontab service. The non-essential services should not be executed as root user such as a SQL database. Only the root user and admin user has direct shell access."
+                }
+              ],
+              "privilegeLevel": "High",
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Logic Tier Local\nServer"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 932,
+                "y": 229
+              },
+              "angle": 0,
+              "id": "9bc310ee-c6a3-4ff7-a49b-5c9171e4cc22",
+              "z": 2,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "isSigned": true,
+              "threats": [
+                {
+                  "ruleId": "4adaa48a-0345-4533-a189-64c98c4420dd",
+                  "title": "Generic tampering threat",
+                  "type": "Tampering",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "People gain direct access to the bucket without authentication.",
+                  "mitigation": "Allow only specific IP (Server IP) to access the S3 bucket. Making sure only specific AWS account can access the S3 bucket\nP.S. Follow the CIS benchmark"
+                },
+                {
+                  "ruleId": "87bc37e2-798e-4d68-bb96-feb1da26da48",
+                  "title": "Generic repudiation threat",
+                  "type": "Repudiation",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "A generic repudiation threat",
+                  "mitigation": "The connection between the server and the S3 bucket will always be encrypted within SSL"
+                },
+                {
+                  "ruleId": "13000296-b17d-4b72-9cc4-f5cc33f80e4c",
+                  "title": "Generic informtion disclosure threat",
+                  "type": "Information disclosure",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "S3 bucket server address is public",
+                  "mitigation": "Allow only specific IP can access the S3 bucket. Also, any other request from different IP addresses will be given a customized 404 page without any sensitive information.\nP.S. Follow the CIS benchmark"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "AWS S3"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 471,
+                "y": 12
+              },
+              "angle": 0,
+              "id": "d090f01e-8d26-44d9-83ad-4503baf66429",
+              "z": 3,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "ruleId": "b2a6d40d-d3f8-4750-8e4d-c02cc84b13dc",
+                  "title": "Generic Elevation of privilege threat",
+                  "type": "Elevation of privilege",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "Someone steals the phone from the client and able to crack the screen lock and access the app",
+                  "mitigation": "Recommend the client-side always enable multi-factor authentication."
+                },
+                {
+                  "ruleId": "87bc37e2-798e-4d68-bb96-feb1da26da48",
+                  "title": "Generic Information disclosure threat",
+                  "type": "Information disclosure",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "shoulder surfing for user credentials\nAPI token disclosure",
+                  "mitigation": "The transfer between server and mobile app will always within the SSL layer\nRecommend the client use screen filter to prevent shoulder surfing"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Mobile Song APP"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 451,
+                "y": 438
+              },
+              "angle": 0,
+              "id": "cd2aa0f2-04d7-45f2-b566-3585aa517694",
+              "z": 4,
+              "hasOpenThreats": false,
+              "storesCredentials": true,
+              "isEncrypted": true,
+              "isSigned": true,
+              "threats": [
+                {
+                  "ruleId": "4adaa48a-0345-4533-a189-64c98c4420dd",
+                  "title": "Generic tampering threat",
+                  "type": "Tampering",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Change client credentials",
+                  "mitigation": "Only the server process allows accessing the database and enables an application-level firewall in order to stop any suspicious query like SQL injection."
+                },
+                {
+                  "ruleId": "87bc37e2-798e-4d68-bb96-feb1da26da48",
+                  "title": "Generic repudiation threat",
+                  "type": "Repudiation",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "A generic repudiation threat",
+                  "mitigation": "The connection between the database and the server process will always under a secure tunnel (SSL)."
+                },
+                {
+                  "ruleId": "13000296-b17d-4b72-9cc4-f5cc33f80e4c",
+                  "title": "Generic informtion disclosure threat",
+                  "type": "Information disclosure",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Someone is able to gain direct access to the database",
+                  "mitigation": "The client password will be hashed and stored in the database. Making sure the accounts within the database follows the principle of least privilege."
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Local Database"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "smooth": true,
+              "source": {
+                "x": 793,
+                "y": 1
+              },
+              "target": {
+                "x": 800,
+                "y": 530
+              },
+              "vertices": [],
+              "id": "2afecc3e-1843-4ae4-8894-f4cfb2f191bb",
+              "z": 5,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "smooth": true,
+              "source": {
+                "x": 362,
+                "y": 153
+              },
+              "target": {
+                "x": 737,
+                "y": 154
+              },
+              "vertices": [],
+              "id": "8f384012-b33d-4e11-ab5b-6db6841086b3",
+              "z": 6,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "smooth": true,
+              "source": {
+                "x": 375,
+                "y": 348
+              },
+              "target": {
+                "x": 695,
+                "y": 358
+              },
+              "vertices": [],
+              "id": "e817be6e-65f7-44fa-b698-ed5f5a51eef4",
+              "z": 7,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "e89ea73b-bcd2-4063-89c0-f3eaf0b0b402"
+              },
+              "target": {
+                "id": "9bc310ee-c6a3-4ff7-a49b-5c9171e4cc22"
+              },
+              "vertices": [
+                {
+                  "x": 757,
+                  "y": 323
+                }
+              ],
+              "id": "4385254b-b022-42a8-83ec-cfcf63b7f235",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Secret Song data\nrequest",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 8,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "9bc310ee-c6a3-4ff7-a49b-5c9171e4cc22"
+              },
+              "target": {
+                "id": "e89ea73b-bcd2-4063-89c0-f3eaf0b0b402"
+              },
+              "vertices": [
+                {
+                  "x": 751,
+                  "y": 210
+                }
+              ],
+              "id": "07a2ff3a-07d5-4d9a-8336-0d18d8e26b21",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Secret Song Data\nResponse",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 9,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "d090f01e-8d26-44d9-83ad-4503baf66429"
+              },
+              "target": {
+                "id": "e89ea73b-bcd2-4063-89c0-f3eaf0b0b402"
+              },
+              "vertices": [
+                {
+                  "x": 644,
+                  "y": 193
+                }
+              ],
+              "id": "0944f222-7cf7-4d25-83e9-e07ed6cf7a93",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Song Data Request",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 10,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "e89ea73b-bcd2-4063-89c0-f3eaf0b0b402"
+              },
+              "target": {
+                "id": "d090f01e-8d26-44d9-83ad-4503baf66429"
+              },
+              "vertices": [
+                {
+                  "x": 467,
+                  "y": 194
+                }
+              ],
+              "id": "5e9ffa16-67cc-44bf-a317-473be6579db3",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Song Data Response",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 11,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "e89ea73b-bcd2-4063-89c0-f3eaf0b0b402"
+              },
+              "target": {
+                "id": "cd2aa0f2-04d7-45f2-b566-3585aa517694"
+              },
+              "vertices": [
+                {
+                  "x": 619,
+                  "y": 382
+                }
+              ],
+              "id": "498d3874-2acd-4620-b8c3-c241a53a0f1a",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Credentials Verify\nRequest",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 12,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "cd2aa0f2-04d7-45f2-b566-3585aa517694"
+              },
+              "target": {
+                "id": "e89ea73b-bcd2-4063-89c0-f3eaf0b0b402"
+              },
+              "vertices": [
+                {
+                  "x": 461,
+                  "y": 330
+                }
+              ],
+              "id": "43ea02de-ca8e-4113-a0db-0ad044ca6e52",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Credentials Verify\nResponse",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 13,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            }
+          ]
+        },
+        "size": {
+          "height": 590,
+          "width": 1106.174560546875
+        }
       }
     ],
     "reviewer": "Dr. Andrew Reifers"
